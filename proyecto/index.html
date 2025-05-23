@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Agenda de Notas</title>
+  <style>
+    body { font-family: sans-serif; margin: 2em; }
+    .note { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Agenda de Notas</h1>
+  <input id="title" placeholder="Título" />
+  <input id="date" type="date" />
+  <button onclick="addNote()">Agregar</button>
+  <div id="notes"></div>
+
+  <script>
+    const notes = [];
+
+    function addNote() {
+      const title = document.getElementById("title").value;
+      const date = document.getElementById("date").value;
+      const note = { title, date };
+      notes.push(note);
+      renderNotes();
+    }
+
+    function renderNotes() {
+      const container = document.getElementById("notes");
+      container.innerHTML = "";
+      notes.forEach((note, i) => {
+        const div = document.createElement("div");
+        div.className = "note";
+        div.innerHTML = `<strong>${note.title}</strong><br>${note.date}<br>
+                         <button onclick="deleteNote(${i})">Eliminar</button>`;
+        container.appendChild(div);
+      });
+    }
+
+    function deleteNote(index) {
+      notes.splice(index, 1);
+      renderNotes();
+    }
+  </script>
+</body>
+</html>
